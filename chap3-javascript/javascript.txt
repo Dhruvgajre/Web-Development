@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+
+		<title>Reaction Tester</title>
+
+		<style type = "text/css">
+
+		#shape {
+
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			display: none;
+			position:  relative;
+
+		}
+
+		#time {
+			font-weight:  bold;
+		}
+
+		</style>
+
+	</head>
+
+	<body>
+
+		<h1>Test Your Reactions!</h1>
+
+		<p>Click on the appearing shapes as fast you can!</p>
+
+		<p id = "time">Your time: <span id = "timetaken"></span></p>
+
+		<div id = "shape"></div>
+		
+		<script type = "text/javascript">
+
+			var start = new Date().getTime();
+
+			function getRandomColor() {
+
+				var letters = '0123456789ABCDEF'.split(''); // .split() splits an array into string
+				var color = '#'; // color string strating with a #
+				for (var i = 0; i< 6; i++) // color code has 6 values 
+				{
+
+					color = color + letters[Math.floor(Math.random() *16)];
+				} return color;
+
+			}
+
+			function makeShapeAppear() {
+
+				var top = Math.random() * 400;
+
+				var left = Math.random() * 400; 
+
+				var width = (Math.random() * 150) + 100;
+
+				if (Math.random() > 0.5) {
+
+					document.getElementById("shape").style.borderRadius = "50%";
+				} else {
+					document.getElementById("shape").style.borderRadius = "0";
+				}
+
+				document.getElementById("shape").style.top = top +"px";
+
+				document.getElementById("shape").style.left = left +"px";
+
+				document.getElementById("shape").style.width = width +"px";
+
+				document.getElementById("shape").style.height = width +"px";
+
+				document.getElementById("shape").style.backgroundColor = getRandomColor();
+
+				document.getElementById("shape").style.display = "block" // setting display to true
+
+				start = new Date().getTime();
+
+			}
+
+			function appearAfterDelay() {
+
+				setTimeout(makeShapeAppear, Math.random()*3000);
+
+			}
+
+			
+
+			appearAfterDelay();
+
+			document.getElementById("shape").onclick = function() {
+
+				document.getElementById("shape").style.display = "none";
+
+				var end = new Date().getTime();
+
+				var timetaken = end - start;
+
+				var seconds = timetaken/1000;
+
+				document.getElementById("timetaken").innerHTML = seconds + "s";
+
+				appearAfterDelay();
+				
+
+			}
+
+		</script>
+		
+
+	</body>
+
+</html>
+
